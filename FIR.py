@@ -6,10 +6,7 @@ class Chess:
         self.chess_board = np.zeros((15, 15), dtype=np.int8)
         self.person_chess_pieces = 1
         self.computer_chess_pieces = -1
-
-    @property
-    def first_player(self):
-        return np.random.choice([self.person_chess_pieces, self.computer_chess_pieces])
+        self.first_player = None
 
     def put_chess_pieces(self, identity, coordinate_x, coordinate_y):
         if identity == self.person_chess_pieces:
@@ -29,6 +26,8 @@ class Chess:
 
 def main():
     chess = Chess()
+    chess.first_player = np.random.choice([chess.person_chess_pieces,
+                                           chess.computer_chess_pieces])
     print '%s' % ('You First'
                   if chess.first_player == chess.person_chess_pieces
                   else 'Computer First')

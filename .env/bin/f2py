@@ -1,4 +1,4 @@
-#!/Users/TT/Documents/GitHub/FIR/.env/bin/python2.7
+#!/Users/TT/Documents/GitHub/FIR/.env/bin/python3
 # See http://cens.ioc.ee/projects/f2py2e/
 from __future__ import division, print_function
 

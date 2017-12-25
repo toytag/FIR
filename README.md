@@ -1,14 +1,15 @@
-# Usage  
+# Usage
 Open the repository in terminal and run  
-```  
-source .env/bin/active  
-python FIRmain.py  
+```
+source .env/bin/active
+python FIR.py
 ```
 And then your are ready to play  
 Have some FUN :-)  
-# How to Play  
-> You might want a 15 * 15 chess board in the real world because it won't be shown in your console  
+# How to Play
+> You might want a 15 * 15 chess board in the real world because it won't be shown in your console
 
 # Dependency
-Python 2.7 and NumPy  
-Preinstalled in `./.env`
+Python 3.6 and NumPy preinstalled in `.env`  
+
+This project is not finished yet...

@@ -28,9 +28,9 @@ def main():
     chess = Chess()
     chess.first_player = np.random.choice([chess.person_chess_pieces,
                                            chess.computer_chess_pieces])
-    print '%s' % ('You First'
+    print('%s' % ('You First'
                   if chess.first_player == chess.person_chess_pieces
-                  else 'Computer First')
+                  else 'Computer First'))
 
 
 if __name__ == '__main__':

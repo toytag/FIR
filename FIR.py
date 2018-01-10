@@ -8,7 +8,7 @@ class Chess:
         self.computer_chess_pieces = -1
         self.first_player = None
 
-    def put_chess_pieces(self, identity, coordinate_x, coordinate_y):
+    def put_chess(self, identity, coordinate_x, coordinate_y):
         if identity == self.person_chess_pieces:
             self.chess_board[coordinate_x][coordinate_y] = self.person_chess_pieces
         elif identity == self.computer_chess_pieces:

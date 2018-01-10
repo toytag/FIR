@@ -25,7 +25,7 @@ class Chess:
         elif identity == self.computer_chess_pieces:
             self.chess_board[coordinate_x][coordinate_y] = self.computer_chess_pieces
 
-    def analysis(self):
+    def analyse(self):
         pass
 
     def check_winner(self):

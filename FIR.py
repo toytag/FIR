@@ -1,7 +1,6 @@
 import numpy as np
 from Check import check
-from Analyse import analyse
-from pprint import pprint
+from Analyse import depth_analyse
 
 
 class CoordinateError(Exception):
@@ -12,12 +11,12 @@ class CoordinateError(Exception):
 
 
 class Chess:
-    person_chess_pieces = 2
-    computer_chess_pieces = -2
+    person_chess_pieces = 1
+    computer_chess_pieces = -1
     
     def __init__(self):
         self.chess_board = np.zeros((15, 15), dtype=np.int8)
-        self.score_board = None
+        self.score_board = np.zeros((15, 15), dtype=np.int32)
         self.first_player = None
         self.winner = None
 
@@ -30,32 +29,23 @@ class Chess:
         elif identity == self.computer_chess_pieces:
             self.chess_board[coordinate_x][coordinate_y] = self.computer_chess_pieces
 
-    def analyse(self):
-        # initialize score board
-        self.score_board = np.zeros((15, 15))
-        # analyse the chess board
-        analyse(self.chess_board, self.score_board)
-        score_ls = self.score_board.reshape(15 * 15).tolist()
-        # find max score point
-        location = score_ls.index(max(score_ls))
-        # calculate its location
-        coordinate_x, coordinate_y = location // 15, location % 15
+    def analyse_put(self):
+        # analyse the chess board and get the location
+        coordinate = depth_analyse(self.chess_board, self.score_board, 
+                                   np.random.choice([4, 6]))
         # put the chess
-        self.put_chess(self.computer_chess_pieces, coordinate_x, coordinate_y)
+        self.put_chess(self.computer_chess_pieces, coordinate[1], coordinate[2])
         # show it to the user
-        print("\nComputer at:", coordinate_x, coordinate_y, "\n")
+        print("\nComputer at:", coordinate[1], coordinate[2], "\n")
 
     def check_winner(self):
-        for i in range(15):
-            for j in range(15):
-                if check(self.chess_board, i, j):
-                    return True
+        return check(self.chess_board)
 
     def display_chess_board(self):
         for i in range(15):
             for j in range(15):
                 print('.' if self.chess_board[i][j] == 0 
-                          else self.chess_board[i][j], end='  ')
+                          else self.chess_board[i][j], end='\t')
             print()
     
     def display_score_board(self):
@@ -76,7 +66,7 @@ def main():
 
     if chess.first_player == chess.computer_chess_pieces:
         chess.put_chess(chess.computer_chess_pieces, 7, 7)
-        chess.display_chess_board()
+        print("\nComputer at: 7 7\n")
 
     # main loop
     while True:
@@ -97,7 +87,7 @@ def main():
             break
 
         # computer's move
-        chess.analyse()
+        chess.analyse_put()
         # chess.display_chess_board()
         # print()
         # chess.display_score_board()

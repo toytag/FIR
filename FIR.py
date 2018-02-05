@@ -71,9 +71,7 @@ def main():
     # main loop
     while True:
         # user's move
-        coordinate = list(map(int,
-                              filter(lambda x: x.isdigit(),
-                                     input("Row and Column: (seperate by space)\n").split())))
+        coordinate = [int(i) for i in filter(lambda x: x.isdigit(), input("Row and Column: (seperate by space)\n").split())]
         try:
             chess.put_chess(chess.person_chess_pieces, coordinate[0], coordinate[1])
         except IndexError:

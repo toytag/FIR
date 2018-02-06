@@ -1,4 +1,6 @@
-# Usage
+# FIR (Gobang)
+
+## Usage
 
 Open the repository in terminal and run
 
@@ -10,11 +12,11 @@ python FIR.py
 And then your are ready to play  
 Have some FUN :-)
 
-# How to Play
+## How to Play
 
 > You might want a 15 * 15 chess board in the real world because it won't be shown in your console
 
-# Dependency
+## Dependency
 
 Python 3.6 and NumPy pre-installed in `.venv`
 

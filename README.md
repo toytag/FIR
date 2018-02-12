@@ -20,4 +20,3 @@ Have some FUN :-)
 
 Python 3.6 and NumPy pre-installed in `.venv`
 
-This project is not finished yet...

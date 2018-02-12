@@ -86,9 +86,7 @@ def main():
 
         # computer's move
         chess.analyse_put()
-        # chess.display_chess_board()
-        # print()
-        # chess.display_score_board()
+
         if chess.check_winner():
             print("Winner is COMPUTER")
             break

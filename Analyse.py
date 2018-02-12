@@ -64,11 +64,4 @@ def get_top3(score_ls):
         top_score_ls.append([max_score, x, y])
         score_ls[location] = 0
     return top_score_ls
-
-# def evaluation(chess_board, score_board):
-#     cbc = chess_board.copy()
-#     for i in range(15):
-#         for j in range(15):
-#             if score_board[i][j] > 0:
-#                 cbc[i][j] = 
                 

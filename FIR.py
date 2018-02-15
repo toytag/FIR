@@ -1,7 +1,6 @@
 import numpy as np
 from Check import check
 from Analyse import depth_analyse
-from SbS import stop_being_silly
 
 
 class CoordinateError(Exception):
@@ -33,11 +32,9 @@ class Chess:
     def analyse_put(self):
         # initialize score board
         self.score_board = np.zeros((15, 15), dtype=np.int32)
-        # don't panic and stop being silly
-        stop_being_silly(self.chess_board, self.score_board)
         # analyse the chess board and get the location
         coordinate = depth_analyse(self.chess_board, self.score_board, 
-                                   np.random.choice([4, 6]))
+                                   np.random.choice([2, 4, 6]))
         # put the chess
         self.put_chess(self.computer_chess_pieces, coordinate[1], coordinate[2])
         # show it to the user

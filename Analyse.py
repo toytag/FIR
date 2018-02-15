@@ -1,4 +1,5 @@
 import numpy as np
+from SbS import stop_being_silly
 
 def analyse(chess_board, score_board):
     for i in range(15):
@@ -43,6 +44,7 @@ def analyse(chess_board, score_board):
 def depth_analyse(chess_board, score_board, depth):
     cb_backup = chess_board.copy()
     sb_backup = score_board.copy()
+    stop_being_silly(cb_backup, sb_backup)
     analyse(cb_backup, sb_backup)
     top_score_ls = get_top3(sb_backup.reshape(15 * 15).tolist())
     if depth == 1:

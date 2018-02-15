@@ -5,7 +5,7 @@ def analyse(chess_board, score_board):
         for j in range(15):
             if chess_board[i][j] != 0:
                 # avoid self
-                score_board[i][j] = -1000
+                score_board[i][j] = -10000
                 # vertical
                 if i - 2 >= 0 and i + 2 <= 14:
                     vertical_sum = chess_board[i - 2][j] + chess_board[i - 1][j] + \
@@ -42,9 +42,9 @@ def analyse(chess_board, score_board):
 
 def depth_analyse(chess_board, score_board, depth):
     cb_backup = chess_board.copy()
-    score_board = np.zeros((15, 15), dtype=np.int32)
-    analyse(cb_backup, score_board)
-    top_score_ls = get_top3(score_board.reshape(15 * 15).tolist())
+    sb_backup = score_board.copy()
+    analyse(cb_backup, sb_backup)
+    top_score_ls = get_top3(sb_backup.reshape(15 * 15).tolist())
     if depth == 1:
         return top_score_ls[0]
     ls = []

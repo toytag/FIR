@@ -24,6 +24,7 @@ class Chess:
         # raise an error if user's input coordinate has already been taken
         if self.chess_board[coordinate_x][coordinate_y] != 0:
             raise CoordinateError(self.chess_board[coordinate_x][coordinate_y])
+        # otherwise put the chess
         if identity == self.person_chess_pieces:
             self.chess_board[coordinate_x][coordinate_y] = self.person_chess_pieces
         elif identity == self.computer_chess_pieces:
@@ -34,7 +35,7 @@ class Chess:
         self.score_board = np.zeros((15, 15), dtype=np.int32)
         # analyse the chess board and get the location
         coordinate = depth_analyse(self.chess_board, self.score_board, 
-                                   np.random.choice([2, 4, 6]))
+                                   np.random.choice([4, 6]))
         # put the chess
         self.put_chess(self.computer_chess_pieces, coordinate[1], coordinate[2])
         # show it to the user
@@ -42,20 +43,6 @@ class Chess:
 
     def check_winner(self):
         return check(self.chess_board)
-
-    def display_chess_board(self):
-        for i in range(15):
-            for j in range(15):
-                print('.' if self.chess_board[i][j] == 0 
-                          else self.chess_board[i][j], end='\t')
-            print()
-    
-    def display_score_board(self):
-        for i in range(15):
-            for j in range(15):
-                print('.' if self.score_board[i][j] == 0 
-                          else self.score_board[i][j], end='\t')
-            print()
 
 
 def main():

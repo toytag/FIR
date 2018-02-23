@@ -1,5 +1,6 @@
 # FIR (Gobang)
 
+
 ## Usage
 
 Open the repository in terminal and run

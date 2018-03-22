@@ -31,7 +31,7 @@ class FIRenv(tk.Tk):
         # self.canvas.bind('<Button-2>', self.__regret)
 
     def __put_circle(self, x, y):
-        print('computer', x, y)
+        # print('computer', x, y)
         self.chess.put_chess(Chess.computer_chess_pieces, x, y)
         i = x * 42
         j = y * 42
@@ -41,7 +41,7 @@ class FIRenv(tk.Tk):
     def __put_cross(self, event):
         i = math.floor(event.x/42)
         j = math.floor(event.y/42)
-        print('me', i, j)
+        # print('me', i, j)
         if self.chess.put_chess(Chess.person_chess_pieces, i, j):
             return True
         i *= 42

@@ -2,6 +2,7 @@ import math, time
 import tkinter as tk
 from FIR import Chess
 
+
 class FIRenv(tk.Tk):
     def __init__(self):
         # set up gui

@@ -36,3 +36,4 @@ class Chess:
     def check_winner(self):
         return check(self.chess_board)
 
+

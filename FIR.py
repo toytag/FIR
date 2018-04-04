@@ -30,7 +30,7 @@ class Chess:
         self.score_board = np.zeros((15, 15), dtype=np.int32)
         # analyse the chess board and get the location
         coordinate = depth_analyse(self.chess_board, self.score_board, 
-                                   np.random.choice([4, 6]))
+                                   np.random.choice([3, 5]))
         return coordinate[1], coordinate[2]
 
     def check_winner(self):

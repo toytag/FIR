@@ -1,5 +1,6 @@
 import math, time
 import tkinter as tk
+from tkinter import messagebox
 from FIR import Chess
 
 
@@ -53,8 +54,14 @@ class FIRenv(tk.Tk):
 
     def __scheduler(self, event):
         if self.__put_cross(event):
+            if self.chess.check_winner():
+                messagebox.showinfo(title='FIR GAME', message='You Win')
+                self.destroy()
             return True
         self.__put_circle(*self.chess.analyse_put())
+        if self.chess.check_winner():
+            messagebox.showinfo(title='FIR GAME', message='You Lose')
+            self.destroy()
 
     # def __regret(self):
     #     if self.core.history != []:

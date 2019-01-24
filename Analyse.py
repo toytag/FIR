@@ -19,6 +19,7 @@ def depth_analyse(chess_board, score_board, depth):
 def analyse(chess_board, score_board):
     for i in range(15):
         for j in range(15):
+            coef = np.random.uniform(0.5, 1.5)
             if chess_board[i, j] != 0:
                 # avoid self
                 score_board[i, j] = -10000
@@ -26,29 +27,29 @@ def analyse(chess_board, score_board):
                 if i - 2 >= 0 and i + 2 <= 14:
                     vertical_sum = np.sum(chess_board[i-2:i+3, j])
                     score_board[i-2, j] += (vertical_sum - chess_board[i-2, j]) ** 2
-                    score_board[i-1, j] += 2 * (vertical_sum - chess_board[i-1, j]) ** 2
-                    score_board[i+1, j] += 2 * (vertical_sum - chess_board[i+1, j]) ** 2
+                    score_board[i-1, j] += coef * (vertical_sum - chess_board[i-1, j]) ** 2
+                    score_board[i+1, j] += coef * (vertical_sum - chess_board[i+1, j]) ** 2
                     score_board[i+2, j] += (vertical_sum - chess_board[i+2, j]) ** 2
                 # horizontal(-)
                 if j - 2 >= 0 and j + 2 <= 14:
                     horizontal_sum = np.sum(chess_board[i, j-2:j+3])
                     score_board[i, j-2] += (horizontal_sum - chess_board[i, j-2]) ** 2
-                    score_board[i, j-1] += 2 * (horizontal_sum - chess_board[i, j-1]) ** 2
-                    score_board[i, j+1] += 2 * (horizontal_sum - chess_board[i, j+1]) ** 2
+                    score_board[i, j-1] += coef * (horizontal_sum - chess_board[i, j-1]) ** 2
+                    score_board[i, j+1] += coef * (horizontal_sum - chess_board[i, j+1]) ** 2
                     score_board[i, j+2] += (horizontal_sum - chess_board[i, j+2]) ** 2
-                # diagnoal(\)
+                # diagonal(\)
                 if i - 2 >= 0 and j - 2 >= 0 and i + 2 <= 14 and j + 2 <= 14:
                     slash_sum = np.sum(np.diag(chess_board[i-2:i+3, j-2:j+3]))
                     score_board[i-2, j+2] += (slash_sum - chess_board[i-2, j+2]) ** 2
-                    score_board[i-1, j+1] += 2 * (slash_sum - chess_board[i-1, j+1]) ** 2
-                    score_board[i+1, j-1] += 2 * (slash_sum - chess_board[i+1, j-1]) ** 2
+                    score_board[i-1, j+1] += coef * (slash_sum - chess_board[i-1, j+1]) ** 2
+                    score_board[i+1, j-1] += coef * (slash_sum - chess_board[i+1, j-1]) ** 2
                     score_board[i+2, j-2] += (slash_sum - chess_board[i+2, j-2]) ** 2
                 # diagonal(/)
                 if i - 2 >= 0 and j - 2 >= 0 and i + 2 <= 14 and j + 2 <= 14:
                     backslash_sum = np.sum(np.diag(np.fliplr(chess_board[i-2:i+3, j-2:j+3])))
                     score_board[i-2, j-2] += (backslash_sum - chess_board[i-2, j-2]) ** 2
-                    score_board[i-1, j-1] += 2 * (backslash_sum - chess_board[i-1, j-1]) ** 2
-                    score_board[i+1, j+1] += 2 * (backslash_sum - chess_board[i+1, j+1]) ** 2
+                    score_board[i-1, j-1] += coef * (backslash_sum - chess_board[i-1, j-1]) ** 2
+                    score_board[i+1, j+1] += coef * (backslash_sum - chess_board[i+1, j+1]) ** 2
                     score_board[i+2, j+2] += (backslash_sum - chess_board[i+2, j+2]) ** 2
 
 def stop_being_silly(chess_board, score_board):

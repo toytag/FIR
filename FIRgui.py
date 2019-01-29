@@ -10,7 +10,7 @@ class FIRenv(tk.Tk):
         super().__init__()
         self.title('FIR GAME')
         self.geometry('630x630')
-        self.__creat_canvas()
+        self.__create_canvas()
         self.__setup_chess_board()
         # set up core
         self.chess = Chess()
@@ -18,7 +18,7 @@ class FIRenv(tk.Tk):
             self.__put_circle(7, 7)
 
     
-    def __creat_canvas(self):
+    def __create_canvas(self):
         self.canvas = tk.Canvas(self, bg='lightcyan', width=630, height=630)
         self.canvas.pack()
 

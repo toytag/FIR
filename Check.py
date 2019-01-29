@@ -12,7 +12,7 @@ def check(chess_board):
                 if j - 2 >= 0 and j + 2 <= 14:
                     if abs(np.sum(chess_board[i, j-2:j+3])) == 5:
                         return True
-                # diagnoal(\)
+                # diagonal(\)
                 if i - 2 >= 0 and i + 2 <= 14 and j - 2 >= 0 and j + 2 <= 14:
                     if abs(np.sum(np.diag(chess_board[i-2:i+3, j-2:j+3]))) == 5:
                         return True

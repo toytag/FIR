@@ -13,6 +13,8 @@ class FIRenv(tk.Tk):
         self.__setup_chess_board()
         # set up chess
         self.chess = Chess()
+        # start
+        self.mainloop()
 
     def __setup_chess_board(self):
         self.canvas = tk.Canvas(self, bg='BurlyWood', width=630, height=630)
@@ -61,4 +63,3 @@ class FIRenv(tk.Tk):
 
 if __name__ == '__main__':
     chess = FIRenv()
-    chess.mainloop()

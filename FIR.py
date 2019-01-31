@@ -6,7 +6,6 @@ from Analyse import analyse
 class Chess:
     person = 1
     computer = -1
-    
     def __init__(self):
         self.chess_board = np.zeros((15, 15), dtype=np.int8)
         self.first_player = Chess.computer

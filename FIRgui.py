@@ -10,19 +10,13 @@ class FIRenv(tk.Tk):
         super().__init__()
         self.title('FIR GAME')
         self.geometry('630x630')
-        self.__create_canvas()
         self.__setup_chess_board()
-        # set up core
+        # set up chess
         self.chess = Chess()
-        if self.chess.first_player == self.chess.computer_chess_pieces:
-            self.__put_circle(7, 7)
-
-    
-    def __create_canvas(self):
-        self.canvas = tk.Canvas(self, bg='lightcyan', width=630, height=630)
-        self.canvas.pack()
 
     def __setup_chess_board(self):
+        self.canvas = tk.Canvas(self, bg='BurlyWood', width=630, height=630)
+        self.canvas.pack()
         for i in range(42, 630, 42):
             # vertical line
             self.canvas.create_line(i, 0, i, 630)
@@ -30,45 +24,40 @@ class FIRenv(tk.Tk):
             self.canvas.create_line(0, i, 630, i)
         # bind events
         self.canvas.bind('<Button-1>', self.__scheduler)
-        # self.canvas.bind('<Button-2>', self.__regret)
 
-    def __put_circle(self, x, y):
-        # print('computer', x, y)
-        self.chess.put_chess(Chess.computer_chess_pieces, x, y)
-        i = x * 42
-        j = y * 42
-        self.canvas.create_oval(i+4, j+4, i+38, j+38, width=3, outline='#e59832')
-        self.update()
-
-    def __put_cross(self, event):
-        i = math.floor(event.x/42)
-        j = math.floor(event.y/42)
-        # print('me', i, j)
-        if self.chess.put_chess(Chess.person_chess_pieces, i, j):
-            return True
-        i *= 42
-        j *= 42
-        self.canvas.create_line(i+5, j+5, i+37, j+37, width=3, fill='#2585e5')
-        self.canvas.create_line(i+37, j+5, i+5, j+37, width=3, fill='#2585e5')
+    def __update_chess_board(self):
+        self.canvas.delete('chess')
+        for x in range(15):
+            for y in range(15):
+                if self.chess.chess_board[x, y] != 0:
+                    self.canvas.create_oval(
+                        y * 42 + 3, x * 42 + 3,
+                        y * 42 + 39, x * 42 + 39,
+                        fill='black' if self.chess.chess_board[x, y] == 1 else 'white',
+                        outline='white' if self.chess.chess_board[x, y] == 1 else 'black',
+                        tags='chess',
+                    )
         self.update()
 
     def __scheduler(self, event):
-        if self.__put_cross(event):
-            if self.chess.check_winner():
-                messagebox.showinfo(title='FIR GAME', message='You Win')
-                self.destroy()
-            return True
-        self.__put_circle(*self.chess.analyse_put())
-        if self.chess.check_winner():
-            messagebox.showinfo(title='FIR GAME', message='You Lose')
+        x = math.floor(event.y / 42)
+        y = math.floor(event.x / 42)
+        if self.chess.put_chess(self.chess.person, x, y):
+            self.chess.put_chess(self.chess.computer, *self.chess.analyse())
+        self.__update_chess_board()
+        winner = self.chess.check_winner()
+        if winner == self.chess.person:
+            messagebox.showinfo(
+                title='Game over',
+                message='You win!'
+            )
             self.destroy()
-
-    # def __regret(self):
-    #     if self.core.history != []:
-    #         self.core.chess_board[self.core.history.pop()] = 0
-    #         self.canvas.delete(str(self.core.counter)+'_')
-    #         self.core.counter -= 1
-
+        elif winner == self.chess.computer:
+            messagebox.showinfo(
+                title='Game over',
+                message='Computer win'
+            )
+            self.destroy()
 
 if __name__ == '__main__':
     chess = FIRenv()

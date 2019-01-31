@@ -1,6 +1,7 @@
 import numpy as np
 from keras.models import Sequential
-from keras.layers import Convolution2D, MaxPooling2D, UpSampling2D, BatchNormalization
+from keras.layers import Dense, Convolution2D, Flatten, Reshape, BatchNormalization
+from keras.optimizers import Adam
 
 import FIR
 class ChessDev(FIR.Chess):
@@ -12,63 +13,29 @@ class ChessDev(FIR.Chess):
             filters=32,
             kernel_size=5,
             padding='same',
-            activation='tanh',
+            activation='relu'
         ))
+        self.model.add(Flatten())
         self.model.add(BatchNormalization())
-        self.model.add(Convolution2D(
-            filters=64,
-            kernel_size=5,
-            padding='same',
-            activation='tanh',
-        ))
+        self.model.add(Dense(512, activation='relu'))
         self.model.add(BatchNormalization())
-        self.model.add(Convolution2D(
-            filters=128,
-            kernel_size=5,
-            padding='same',
-            activation='tanh',
-        ))
-        self.model.add(MaxPooling2D(
-            pool_size=3,
-            padding='same',
-        ))
+        self.model.add(Dense(256, activation='relu'))
         self.model.add(BatchNormalization())
-        self.model.add(Convolution2D(
-            filters=64,
-            kernel_size=3,
-            padding='same',
-            activation='relu',
-        ))
-        self.model.add(BatchNormalization())
-        self.model.add(Convolution2D(
-            filters=16,
-            kernel_size=3,
-            padding='same',
-            activation='relu',
-        ))
-        self.model.add(BatchNormalization())
-        self.model.add(Convolution2D(
-            filters=4,
-            kernel_size=3,
-            padding='same',
-            activation='relu',
-        ))
-        self.model.add(BatchNormalization())
-        self.model.add(Convolution2D(
-            filters=1,
-            kernel_size=3,
-            padding='same',
-            activation='softmax',
-        ))
-        self.model.add(BatchNormalization())
-        self.model.add(UpSampling2D(size=3))
-
-    def learn(self, batch_chess_board, batch_target_value_board):
-        self.model.train_on_batch(batch_chess_board, batch_target_value_board)
+        self.model.add(Dense(225, activation='relu'))
+        self.model.add(Reshape(target_shape=(15, 15)))
+        self.model.summary()
+        self.model.compile(optimizer=Adam(lr=1e-2, decay=1e-4), loss='mse', metrics=['accuracy'])
 
     def nn_put(self):
-        value_board = self.model.predict(self.chess_board.reshape(1, 15, 15, 1)).reshape(15, 15)
+        value_board = self.model.predict(self.chess_board.reshape(1, 15, 15, 1))
         return divmod(np.argmax(value_board), 15)
 
 if __name__ == "__main__":
     chess = ChessDev()
+    import pickle
+    from FIRgui import Data
+    with open('data.pkl', 'rb') as f:
+        data = pickle.load(f)
+    chess.model.fit(data.x[:1000].reshape(-1, 15, 15, 1), data.y[:1000], epochs=200, batch_size=100)
+    # print(data.x.shape)  
+    chess.model.save('m.model')

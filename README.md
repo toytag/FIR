@@ -3,7 +3,8 @@
 Happy playing with the computer!!!
 Wish you could beat the algorithm :D
 
-> The first player is always randomly selected by the computer
+> People Black, Computer White  
+> Black Goes First
 
 ## For Dev
 

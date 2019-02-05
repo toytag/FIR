@@ -4,6 +4,7 @@ def analyse(chess_board):
     value_board = np.zeros((15, 15), dtype=np.float)
     for i in range(15):
         for j in range(15):
+            coef = np.random.uniform(0.5, 1.5)
             if chess_board[i, j] != 0:
                 # vertical(|)
                 if i - 2 >= 0 and i + 2 <= 14:

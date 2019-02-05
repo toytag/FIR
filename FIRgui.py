@@ -26,8 +26,8 @@ class FIRenv(tk.Tk):
         # set up chess
         self.chess = Chess()
         # self.data = Data()
-        with open('data.pkl', 'rb') as f:
-            self.data = pickle.load(f)
+        # with open('data.pkl', 'rb') as f:
+        #     self.data = pickle.load(f)
         # start
         self.mainloop()
 
@@ -59,9 +59,9 @@ class FIRenv(tk.Tk):
     def __scheduler(self, event):
         x = math.floor(event.y / 42)
         y = math.floor(event.x / 42)
-        self.data.store(self.chess.chess_board, analyse(self.chess.chess_board))
+        # self.data.store(self.chess.chess_board, analyse(self.chess.chess_board))
         if self.chess.put_chess(self.chess.person, x, y):
-            self.data.store(self.chess.chess_board, analyse(self.chess.chess_board))
+            # self.data.store(self.chess.chess_board, analyse(self.chess.chess_board))
             self.chess.put_chess(self.chess.computer, *self.chess.analyse())
         self.__update_chess_board()
         winner = self.chess.check_winner()
@@ -80,5 +80,5 @@ class FIRenv(tk.Tk):
 
 if __name__ == '__main__':
     chess = FIRenv()
-    with open('data.pkl', 'wb') as f:
-        pickle.dump(chess.data, f)
+    # with open('data.pkl', 'wb') as f:
+    #     pickle.dump(chess.data, f)

@@ -28,4 +28,4 @@ def check(chess_board):
                         return 1
                     if np.sum(np.diag(np.fliplr(chess_board[i-2:i+3, j-2:j+3]))) == -5:
                         return -1
-    return 0
+    return None

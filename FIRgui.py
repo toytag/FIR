@@ -1,7 +1,6 @@
-import math, pickle
+import math
 import tkinter as tk
 from tkinter import messagebox
-import numpy as np
 from FIR import Chess
 
 

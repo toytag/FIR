@@ -1,2 +1,5 @@
 *
 !.gitignore
+!FIR.py
+!FIRgui.py
+!README.md

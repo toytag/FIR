@@ -1,10 +1,10 @@
 import math
 import tkinter as tk
 from tkinter import messagebox
-from FIR import Chess
+from fir import fir
 
 
-class FIRenv(tk.Tk):
+class firGUI(tk.Tk):
     def __init__(self):
         # set up gui
         super().__init__()
@@ -12,7 +12,7 @@ class FIRenv(tk.Tk):
         self.geometry('630x630')
         self.__setup_chess_board()
         # set up chess
-        self.chess = Chess()
+        self.chess = fir()
         # start
         self.mainloop()
 
@@ -44,24 +44,24 @@ class FIRenv(tk.Tk):
     def __scheduler(self, event):
         x = math.floor(event.y / 42)
         y = math.floor(event.x / 42)
-        if self.chess.put_chess(self.chess.person, x, y):
+        if self.chess.put_chess(self.chess.BLACK, x, y):
             winner = self.chess.check_winner()
             if not winner:
-                self.chess.put_chess(self.chess.computer, *self.chess.analyse())
+                self.chess.put_chess(self.chess.WHITE, *self.chess.analyse())
                 winner = self.chess.check_winner()
         self.__update_chess_board()
-        if winner == self.chess.person:
+        if winner == self.chess.BLACK:
             messagebox.showinfo(
                 title='Game over',
-                message='You win!'
+                message='Black win!'
             )
             self.destroy()
-        elif winner == self.chess.computer:
+        elif winner == self.chess.WHITE:
             messagebox.showinfo(
                 title='Game over',
-                message='Computer win'
+                message='White win!'
             )
             self.destroy()
 
 if __name__ == '__main__':
-    chess = FIRenv()
+    firGUI()
